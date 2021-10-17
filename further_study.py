@@ -16,7 +16,12 @@ def custom_len(input_list):
 
     """
 
-    return 0
+    counter = 0
+
+    for item in input_list:
+        counter += 1
+
+    return counter
 
 
 # For the next four exercises, you'll need to be clever and think about ways
@@ -43,8 +48,9 @@ def custom_append(input_list, value):
         True
 
     """
-
-    pass
+    #this is not my code, I got it from the solution file:
+    list_length = custom_len(input_list)
+    input_list[list_length:list_length] = [value] 
 
 
 def custom_extend(input_list, second_list):
@@ -62,8 +68,14 @@ def custom_extend(input_list, second_list):
         True
 
     """
+    
 
-    pass
+    index = 0
+
+    for item in second_list:
+        list_length = custom_len(input_list)
+        input_list[list_length:list_length] = [second_list[index]]
+        index += 1
 
 
 def custom_insert(input_list, index, value):
@@ -81,7 +93,9 @@ def custom_insert(input_list, index, value):
 
     """
 
-    pass
+
+    # input_list[0:index-1] + [value] + input_list[index:] #my attempt
+    input_list[index:index] = [value] #answer from the solution - not my code
 
 
 def custom_remove(input_list, value):
@@ -100,7 +114,13 @@ def custom_remove(input_list, value):
 
     """
 
-    pass
+    index = 0
+
+    for item in input_list:
+        if item == value:
+            del input_list[index]
+            return None
+        index += 1
 
 
 def custom_pop(input_list):
@@ -119,7 +139,11 @@ def custom_pop(input_list):
 
     """
 
-    return None
+    last_item = input_list[-1]
+
+    del input_list[-1]
+
+    return last_item
 
 
 def custom_index(input_list, value):
@@ -135,7 +159,13 @@ def custom_index(input_list, value):
 
     """
 
-    return 0
+    index = 0
+
+    for item in input_list:
+        if item == value:
+            return index
+        index += 1
+
 
 
 def custom_count(input_list, value):
@@ -151,7 +181,13 @@ def custom_count(input_list, value):
 
     """
 
-    return 0
+    counter = 0
+
+    for item in input_list:
+        if item == value:
+            counter += 1
+
+    return counter
 
 
 def custom_reverse(input_list):
@@ -169,8 +205,25 @@ def custom_reverse(input_list):
         True
 
     """
+    # reversed = []
 
-    pass
+    # list_length = custom_len(input_list)
+
+    # while list_length > 0:
+    
+    #     reversed.append(input_list.pop())
+
+    #     list_length -= 1
+
+    #this is wrong because I created a new list & didn't sort the list 
+    #in-place
+    #I think I want to cut the list in half, then reassign the items
+    #on the opposite sides. So, index 0 would be changed to index -1
+    #index 1 would be changed to index -2
+
+    input_list = input_list[::-1]
+
+
 
 
 def custom_contains(input_list, value):
@@ -190,7 +243,11 @@ def custom_contains(input_list, value):
 
     """
 
-    return None
+    for item in input_list:
+        if item == value:
+            return True
+    
+    return False
 
 
 def custom_equality(some_list, another_list):
@@ -209,7 +266,21 @@ def custom_equality(some_list, another_list):
 
     """
 
-    return None
+    index = 0
+
+    if custom_len(some_list) != custom_len(another_list):
+        return False
+
+    length = custom_len(some_list)
+
+    while length > 0:
+        if some_list[index] != another_list[index]:
+            return False
+        index += 1
+        length -= 1
+
+
+    return True
 
 
 # This is the part were we actually run the doctests.
